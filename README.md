@@ -1,1 +1,212 @@
-# heylove
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Sidhuu 💖</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ffd1dc,#ffb6c1);
+  font-family:'Comic Sans MS', cursive;
+  overflow:hidden;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 15px #ffb6c1; transform: scale(1); }
+  50% { box-shadow: 0 0 30px #ff69b4; transform: scale(1.02); }
+  100% { box-shadow: 0 0 15px #ffb6c1; transform: scale(1); }
+}
+
+/* Love Box */
+.box {
+  background: #fff0f5;
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  display: none;
+  max-width: 90%;
+  z-index: 2;
+  animation: float 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
+}
+
+.emoji { font-size: 32px; animation: wiggle 1.5s infinite; }
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(10deg); }
+}
+
+/* Falling Hearts */
+.heart {
+  position: absolute;
+  top: -10px;
+  font-size: 22px;
+  animation: fall linear infinite;
+  pointer-events: none;
+}
+@keyframes fall {
+  0% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* Buttons */
+.btn {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 20px;
+  background: #ff69b4;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+  font-weight: bold;
+}
+.btn:hover { background: #ff1493; transform: scale(1.08); }
+
+/* Start Popup */
+.popup {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.start-box {
+  background: #fff0f5;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Letter Popup */
+.letter-popup {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+}
+
+.letter {
+  background: #fffbf0;
+  padding: 30px;
+  border-radius: 20px;
+  width: 300px;
+  text-align: center;
+  border: 3px dashed #ff69b4;
+  line-height: 1.6;
+}
+
+.bold-text { font-weight: bold; font-size: 20px; color: #ff1493; }
+
+input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #ffb6c1;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+  outline: none;
+}
+</style>
+</head>
+<body>
+
+<div class="popup" id="startPopup">
+  <div class="start-box">
+    <h2>💌 For My Sidhuu 💌</h2>
+    <p>From ur Rajudiii 💖</p>
+    <input type="password" id="pass" placeholder="Enter Password">
+    <br>
+    <button class="btn" onclick="checkPass()">Open Surprise 💝</button>
+  </div>
+</div>
+
+<div class="box" id="mainBox">
+  <div class="emoji">💖🎀🌸</div>
+  <h2>My Babe</h2>
+  <div style="font-size:24px;color:#ff1493;margin-top:20px;">
+    💗 I love you sooo much maru Sidhuuduu 💗<br>
+    🥰💕🌸 Forever & Always 🌸💕🥰
+  </div>
+  <button class="btn" onclick="openLetter()">💌 Read My Love Letter</button>
+</div>
+
+<div class="letter-popup" id="letterPopup">
+  <div class="letter">
+    💖🌸💞<br><br>
+    Humare bich me kitni bhi argues ho jaye,<br>
+    but tu humesha mera rahega maru sidhuduu 💕<br><br>
+    <div class="bold-text">
+      " I Love U Soo Soo Much My Angre Sidhuu " 💖💖💖
+    </div>
+    <br>
+    <button class="btn" onclick="closeLetter()">Close 💕</button>
+  </div>
+</div>
+
+<script>
+// Falling Hearts Effect
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.innerHTML = '💖';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 400);
+
+// Password Check & Celebration
+function checkPass() {
+  const password = document.getElementById('pass').value;
+
+  if(password === "143") {
+    // Confetti Blast
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#ff69b4', '#ff1493', '#ffd1dc']
+    });
+    
+    // Switch views
+    document.getElementById('startPopup').style.display = 'none';
+    document.getElementById('mainBox').style.display = 'block';
+  } else {
+    alert("Wrong Password 💔");
+  }
+}
+
+function openLetter(){
+  document.getElementById('letterPopup').style.display = 'flex';
+}
+
+function closeLetter(){
+  document.getElementById('letterPopup').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
